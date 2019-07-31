@@ -24,3 +24,5 @@ class Artist
     created_artist.save
     created_artist
   end
+
+end
