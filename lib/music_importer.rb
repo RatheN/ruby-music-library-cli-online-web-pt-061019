@@ -6,8 +6,7 @@ class MusicImporter
   end
 
   def files
-    @files = Dir.entries(@path)
-    @files.delete_if {|file| file == "." || file == ".."}
+    Dir.entries(path).select{|f| f.end_with?(".mp3")}
   end
 
   def import
