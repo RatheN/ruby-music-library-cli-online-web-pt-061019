@@ -36,4 +36,6 @@ class Song
     @genre.songs << self if !@genre.songs.include?(self) == true
   end
 
+
+  
 end
