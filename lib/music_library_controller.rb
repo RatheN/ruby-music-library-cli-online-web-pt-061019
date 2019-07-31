@@ -29,4 +29,50 @@ class MusicLibraryController
       play_song if input == "play song"
     end
   end
+
+  def list_songs
+    Song.all.sort {|a, b| a.name <=> b.name}.each.with_index(1) {|song, index| puts "#{index}. #{song.artist.name} - #{song.name} - #{song.genre.name}"}
+  end
+
+  def list_artists
+    Artist.all.sort {|a, b| a.name <=> b.name}.each.with_index(1) {|artist, index| puts "#{index}. #{artist.name}"}
+  end
+
+  def list_genres
+    Genre.all.sort {|a, b| a.name <=> b.name}.each.with_index(1) {|genre, index| puts "#{index}. #{genre.name}"}
+  end
+
+  def list_songs_by_artist
+    puts "Please enter the name of an artist:"
+    input = gets.strip
+
+    if artist = Artist.find_by_name(input)
+      artist.songs.sort {|a, b| a.name <=> b.name}.each.with_index(1) {|song, index| puts "#{index}. #{song.name} - #{song.genre.name}"}
+    else
+      nil
+    end
+  end
+
+  def list_songs_by_genre
+    puts "Please enter the name of a genre:"
+    input = gets.strip
+
+    if genre = Genre.find_by_name(input)
+      genre.songs.sort {|a, b| a.name <=> b.name}.each.with_index(1) {|song, index| puts "#{index}. #{song.artist.name} - #{song.name}"}
+    else
+      nil
+    end
+  end
+
+  def play_song
+    puts "Which song number would you like to play?"
+    input = gets.strip.to_i
+
+    if input.between?(1,Song.all.length)
+      song = Song.all.sort {|a, b| a.name <=> b.name}[input - 1]
+      puts "Playing #{song.name} by #{song.artist.name}"
+    else
+      nil
+    end
+  end
 end
